@@ -1323,7 +1323,15 @@ def getRowObjectFromString(input_string,TableName):
         lng = int(lng)
         par_value = input_string[pos:(pos+lng)]
         if ty=='d': # integer value
-           par_value = int(par_value)
+           if par_value.strip().isnumeric():
+               par_value = int(par_value)
+           else:
+               if par_value == 'A':
+                   par_value = 11
+               elif par_value =='B':
+                   par_value = 12
+               elif par_value == 'C':
+                   par_value = 13
         elif ty.lower() in set(['e','f']): # float value
            par_value = float(par_value)
         elif ty=='s': # string value
@@ -1351,7 +1359,15 @@ def getRowObjectFromString(input_string,TableName):
             par_value = csv_chunks[pos]
             if ty=='d': # integer value
                 try:
-                    par_value = int(par_value)
+                    if par_value.strip().isnumeric():
+                        par_value = int(par_value)
+                    else:
+                        if par_value == 'A':
+                            par_value = 11
+                        elif par_value =='B':
+                            par_value = 12
+                        elif parvalue == 'C':
+                            par_value = 13
                 except:
                     par_value = 0
             elif ty.lower() in set(['e','f']): # float value
