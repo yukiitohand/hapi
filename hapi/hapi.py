@@ -1366,7 +1366,7 @@ def getRowObjectFromString(input_string,TableName):
                             par_value = 11
                         elif par_value =='B':
                             par_value = 12
-                        elif parvalue == 'C':
+                        elif par_value == 'C':
                             par_value = 13
                 except:
                     par_value = 0
