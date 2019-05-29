@@ -1323,15 +1323,18 @@ def getRowObjectFromString(input_string,TableName):
         lng = int(lng)
         par_value = input_string[pos:(pos+lng)]
         if ty=='d': # integer value
-           if par_value.strip().isnumeric():
-               par_value = int(par_value)
+           if par_name.lower() == 'local_iso_id':
+               if par_value.strip().isnumeric():
+                   par_value = int(par_value)
+                   if par_value == 0:
+                       par_value = 10
+               else:
+                   par_value = 11+ord(par_value)-ord('A')
            else:
-               if par_value == 'A':
-                   par_value = 11
-               elif par_value =='B':
-                   par_value = 12
-               elif par_value == 'C':
-                   par_value = 13
+               try:
+                   par_value = int(par_value)
+               except:
+                   par_value = 0
         elif ty.lower() in set(['e','f']): # float value
            par_value = float(par_value)
         elif ty=='s': # string value
@@ -1359,15 +1362,15 @@ def getRowObjectFromString(input_string,TableName):
             par_value = csv_chunks[pos]
             if ty=='d': # integer value
                 try:
-                    if par_value.strip().isnumeric():
-                        par_value = int(par_value)
+                    if par_name.lower() == 'local_iso_id':
+                       if par_value.strip().isnumeric():
+                           par_value = int(par_value)
+                           if par_value == 0:
+                               par_value = 10
+                       else:
+                           par_value = 11+ord(par_value)-ord('A')
                     else:
-                        if par_value == 'A':
-                            par_value = 11
-                        elif par_value =='B':
-                            par_value = 12
-                        elif par_value == 'C':
-                            par_value = 13
+                       par_value = int(par_value)
                 except:
                     par_value = 0
             elif ty.lower() in set(['e','f']): # float value
