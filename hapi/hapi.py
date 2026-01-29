@@ -975,7 +975,21 @@ def getRowObjectFromString(input_string,TableName):
         lng = int(lng)
         par_value = input_string[pos:(pos+lng)]
         if ty=='d': # integer value
-           par_value = int(par_value)
+           # par_value = int(par_value)
+           ###########################################
+           if par_name.lower() == 'local_iso_id':
+               if par_value.strip().isnumeric():
+                   par_value = int(par_value)
+                   if par_value == 0:
+                       par_value = 10
+               else:
+                   par_value = 11+ord(par_value)-ord('A')
+           else:
+               try:
+                   par_value = int(par_value)
+               except:
+                   par_value = 0
+           ###########################################
         elif ty.lower() in set(['e','f']): # float value
            par_value = float(par_value)
         elif ty=='s': # string value
@@ -1003,7 +1017,19 @@ def getRowObjectFromString(input_string,TableName):
             par_value = csv_chunks[pos]
             if ty=='d': # integer value
                 try:
-                    par_value = int(par_value)
+                    # par_value = int(par_value)
+                    # modified fix: I am not sure this is necessary
+                    ###########################################
+                    if par_name.lower() == 'local_iso_id':
+                       if par_value.strip().isnumeric():
+                           par_value = int(par_value)
+                           if par_value == 0:
+                               par_value = 10
+                       else:
+                           par_value = 11+ord(par_value)-ord('A')
+                    else:
+                       par_value = int(par_value)
+                    ###########################################
                 except ValueError:
                     #par_value = 0
                     par_value = np.nan
