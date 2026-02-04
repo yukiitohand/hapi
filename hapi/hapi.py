@@ -2709,24 +2709,24 @@ PARLIST_VOIGT_ALL = mergeParlist(PARLIST_VOIGT_AIR,PARLIST_VOIGT_SELF,
                                  PARLIST_VOIGT_LINEMIXING_ALL)
 
 #PARLIST_SDVOIGT_AIR = ['gamma_air','delta_air','deltap_air','n_air','SD_air']
-#PARLIST_SDVOIGT_AIR = ['gamma_SDV_0_air_296','n_SDV_air_296',
-#                       'gamma_SDV_2_air_296','n_gamma_SDV_2_air_296', # n_SDV_2_air_296 ?
-PARLIST_SDVOIGT_AIR = ['gamma_SDV_0_air_296',  # don't include temperature exponents while they are absent in the database
-                       'gamma_SDV_2_air_296',  # don't include temperature exponents while they are absent in the database
+PARLIST_SDVOIGT_AIR = ['gamma_SDV_0_air_296','n_SDV_air_296',
+                       'gamma_SDV_2_air_296','n_gamma_SDV_2_air_296', # n_SDV_2_air_296 ?
+# PARLIST_SDVOIGT_AIR = ['gamma_SDV_0_air_296',  # don't include temperature exponents while they are absent in the database
+#                        'gamma_SDV_2_air_296',  # don't include temperature exponents while they are absent in the database
                        'delta_SDV_0_air_296','deltap_SDV_air_296','SD_air']
 #PARLIST_SDVOIGT_SELF = ['gamma_self','delta_self','deltap_self','n_self','SD_self']
-#PARLIST_SDVOIGT_SELF = ['gamma_SDV_0_self_296','n_SDV_self_296',
-#                       'gamma_SDV_2_self_296','n_gamma_SDV_2_self_296', # n_SDV_2_self_296 ?
-PARLIST_SDVOIGT_SELF = ['gamma_SDV_0_self_296', # don't include temperature exponents while they are absent in the database
-                       'gamma_SDV_2_self_296',  # don't include temperature exponents while they are absent in the database
+PARLIST_SDVOIGT_SELF = ['gamma_SDV_0_self_296','n_SDV_self_296',
+                        'gamma_SDV_2_self_296','n_gamma_SDV_2_self_296', # n_SDV_2_self_296 ?
+# PARLIST_SDVOIGT_SELF = ['gamma_SDV_0_self_296', # don't include temperature exponents while they are absent in the database
+#                         'gamma_SDV_2_self_296',  # don't include temperature exponents while they are absent in the database
                        'delta_SDV_0_self_296','deltap_SDV_self_296','SD_self']
 PARLIST_SDVOIGT_H2 = []
 PARLIST_SDVOIGT_CO2 = []
 PARLIST_SDVOIGT_HE = []
-#PARLIST_SDVOIGT_LINEMIXING_AIR = ['Y_SDV_air_296','n_Y_SDV_air_296']
-PARLIST_SDVOIGT_LINEMIXING_AIR = ['Y_SDV_air_296'] # don't include temperature exponents while they are absent in the database
-#PARLIST_SDVOIGT_LINEMIXING_SELF = ['Y_SDV_self_296','n_Y_SDV_self_296']
-PARLIST_SDVOIGT_LINEMIXING_SELF = ['Y_SDV_self_296'] # don't include temperature exponents while they are absent in the database
+PARLIST_SDVOIGT_LINEMIXING_AIR = ['Y_SDV_air_296','n_Y_SDV_air_296']
+# PARLIST_SDVOIGT_LINEMIXING_AIR = ['Y_SDV_air_296'] # don't include temperature exponents while they are absent in the database
+PARLIST_SDVOIGT_LINEMIXING_SELF = ['Y_SDV_self_296','n_Y_SDV_self_296']
+# PARLIST_SDVOIGT_LINEMIXING_SELF = ['Y_SDV_self_296'] # don't include temperature exponents while they are absent in the database
 PARLIST_SDVOIGT_LINEMIXING_ALL = mergeParlist(PARLIST_SDVOIGT_LINEMIXING_AIR,
                                               PARLIST_SDVOIGT_LINEMIXING_SELF)
 PARLIST_SDVOIGT_ALL = mergeParlist(PARLIST_SDVOIGT_AIR,PARLIST_SDVOIGT_SELF,
@@ -52238,9 +52238,9 @@ def PROFILE_LORENTZ(Nu,Gamma0,Delta0,WnGrid,YRosen=0.0,Sw=1.0):
     """
     # reduce the extra calculations in the case if YRosen is zero:
     if YRosen==0.0:
-        return Sw*Gamma0/(pi*(Gamma0**2+(WnGrid+Delta0-Nu)**2))
+        return Sw*Gamma0/(pi*(Gamma0**2+(WnGrid-Delta0-Nu)**2))
     else:
-        return Sw*(Gamma0+YRosen*(WnGrid+Delta0-Nu))/(pi*(Gamma0**2+(WnGrid+Delta0-Nu)**2))
+        return Sw*(Gamma0+YRosen*(WnGrid-Delta0-Nu))/(pi*(Gamma0**2+(WnGrid-Delta0-Nu)**2))
 
 def PROFILE_DOPPLER(Nu,GammaD,WnGrid,Sw=1.0):
     """
