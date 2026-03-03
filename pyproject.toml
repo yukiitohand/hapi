@@ -1,0 +1,34 @@
+[build-system]
+requires = ["hatchling>=1.20"]
+build-backend = "hatchling.build"
+
+[project]
+name = "hitran-api"
+dynamic = ["version"]
+description = "HITRAN Application Programming Interface (HAPI)"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [
+  { name = "HITRAN Group" }
+]
+# Add runtime dependencies here if needed:
+dependencies = [
+  "numpy>=1.22"
+]
+
+# Optional but recommended metadata:
+keywords = ["HITRAN", "spectroscopy", "HAPI"]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+]
+
+[tool.hatch.version]
+# Read the version without importing the package
+path = "hapi/_version.py"
+
+[tool.hatch.build.targets.wheel]
+# Ensure your package is included in the wheel
+packages = ["hapi"]
